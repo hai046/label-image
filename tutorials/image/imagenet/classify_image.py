@@ -40,14 +40,13 @@ import os.path
 import re
 import sys
 import tarfile
+import time
+from urllib import request
 from urllib.error import URLError
 
 import numpy as np
-import time
-from six.moves import urllib
 import tensorflow as tf
-from urllib import request, parse
-from http.client import HTTPMessage
+from six.moves import urllib
 
 FLAGS = None
 
