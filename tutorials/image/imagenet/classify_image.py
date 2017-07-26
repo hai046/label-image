@@ -43,6 +43,7 @@ import tarfile
 from urllib.error import URLError
 
 import numpy as np
+import time
 from six.moves import urllib
 import tensorflow as tf
 from urllib import request, parse
@@ -70,7 +71,7 @@ class NodeLookup(object):
             uid_lookup_path = os.path.join(
                 FLAGS.model_dir, 'imagenet_synset_to_human_label_map.txt')
         cn_uid_lookup_path = os.path.join(
-            FLAGS.model_dir, 'imagenet_synset_to_human_label_map_CN.txt')
+            '../../../data', 'imagenet_synset_to_human_label_map_CN.txt')
         self.cn_node_id_to_name = {}
         self.node_lookup = self.load(label_lookup_path, uid_lookup_path, cn_uid_lookup_path)
 
@@ -149,7 +150,7 @@ def create_graph():
         _ = tf.import_graph_def(graph_def, name='')
 
 
-def run_inference_on_image(image):
+def init_image_classify_names():
     """Runs inference on an image.
 
     Args:
@@ -158,12 +159,22 @@ def run_inference_on_image(image):
     Returns:
       Nothing
     """
+    # Creates graph from saved GraphDef.
+    create_graph()
+
+    # Creates node ID --> English string lookup.
+    node_lookup = NodeLookup()
+
+    return node_lookup
+
+
+def classify_by_image(image, node_lookup):
     if not tf.gfile.Exists(image):
         tf.logging.fatal('File does not exist %s', image)
     image_data = tf.gfile.FastGFile(image, 'rb').read()
 
-    # Creates graph from saved GraphDef.
-    create_graph()
+    start = time.time()
+    results = {}
 
     with tf.Session() as sess:
         # Some useful tensors:
@@ -179,19 +190,19 @@ def run_inference_on_image(image):
                                {'DecodeJpeg/contents:0': image_data})
         predictions = np.squeeze(predictions)
 
-        # Creates node ID --> English string lookup.
-        node_lookup = NodeLookup()
-
         top_k = predictions.argsort()[-FLAGS.num_top_predictions:][::-1]
-        result = ''
+        # result = ''
         for node_id in top_k:
             human_string = node_lookup.id_to_string(node_id)
             score = predictions[node_id]
-            item = '%s (score = %.5f)' % (human_string, score)
-            print(item)
-            result = result + ' ' + item
+            # item = '%s (score = %.5f)' % (human_string, score)
+            # print(item)
+            # result = result + ' ' + item
+            results[human_string] = score
+            # print(result)
 
-        print(result)
+    print(time.time() - start)
+    return results
 
 
 def maybe_download_and_extract():
@@ -246,12 +257,8 @@ def download(url):
         return file
 
 
-def main(_):
-    maybe_download_and_extract()
-    image = (FLAGS.image_file if FLAGS.image_file else
-             os.path.join(FLAGS.model_dir, '1.png'))
-    #不能用webp需要转换
-    image = 'http://p.jiemosrc.com/DSxrmLOsUsUD8s41TXBPxw.webp'
+def region_image(image, node_lookup):
+    # 不能用webp需要转换
     if image.startswith("http"):
         if image.find('jiemosrc') > 0 and image.endswith("webp"):
 
@@ -260,9 +267,23 @@ def main(_):
             elif image.endswith(".webp"):
                 image = image + "?x-oss-process=image/format,jpeg"
 
-        image = download(image)
+        image_path = download(image)
+    else:
+        image_path = (FLAGS.image_file if FLAGS.image_file else
+                      os.path.join(FLAGS.model_dir, '1.png'))
 
-    run_inference_on_image(image)
+    results = classify_by_image(image_path, node_lookup)
+    for k, v in results.items():
+        print('%s\t%s\t%s ' % (image, k, v))
+    print('\n\n\n\n')
+    pass
+
+
+def main(_):
+    maybe_download_and_extract()
+    node_lookup = init_image_classify_names()
+
+    region_image('http://image.com/xxxx', node_lookup)
 
 
 if __name__ == '__main__':
@@ -286,7 +307,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--image_file',
         type=str,
-        default='',
+        default='http://p.jiemosrc.com/KSXskHl2EFgD8s41TXBPxw.webp',
         help='Absolute path to image file.'
     )
     parser.add_argument(

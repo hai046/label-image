@@ -7,3 +7,6 @@
 修改后的本地例子 `tutorials/image/imagenet/classify_image.py` 是执行的具体py
 
 `imagenet_synset_to_human_label_map_CN.txt`  这个是百度翻译后的，有的不准，需要持续自己找出来重新翻译了一下
+
+相关阅读：
+http://www.cnblogs.com/neopenx/p/4480701.html
