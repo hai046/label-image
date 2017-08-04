@@ -267,6 +267,8 @@ def region_image(image, node_lookup):
                 image = image + "?x-oss-process=image/format,jpeg"
 
         image_path = download(image)
+    elif image.startswith('/'):
+        image_path = image
     else:
         image_path = (FLAGS.image_file if FLAGS.image_file else
                       os.path.join(FLAGS.model_dir, '1.png'))
@@ -281,8 +283,7 @@ def region_image(image, node_lookup):
 def main(_):
     maybe_download_and_extract()
     node_lookup = init_image_classify_names()
-
-    region_image('http://image.com/xxxx', node_lookup)
+    region_image('http://x.webp', node_lookup)
 
 
 if __name__ == '__main__':
@@ -306,7 +307,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--image_file',
         type=str,
-        default='http://p.jiemosrc.com/KSXskHl2EFgD8s41TXBPxw.webp',
+        default='/test.jpg',
         help='Absolute path to image file.'
     )
     parser.add_argument(
