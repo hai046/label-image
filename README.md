@@ -10,3 +10,7 @@
 
 相关阅读：
 http://www.cnblogs.com/neopenx/p/4480701.html
+
+### 后续
+
+https://github.com/tensorflow/tensorflow/blob/r1.2/tensorflow/examples/label_image/README.md 比本项目实现识别率更高

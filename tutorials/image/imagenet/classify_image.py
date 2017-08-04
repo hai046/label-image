@@ -283,7 +283,7 @@ def region_image(image, node_lookup):
 def main(_):
     maybe_download_and_extract()
     node_lookup = init_image_classify_names()
-    region_image('/Users/haizhu/Downloads/tensorflow/images/temp_image.jpg', node_lookup)
+    region_image('/Users/haizhu/Downloads/tensorflow/images/temp_image.png', node_lookup)
 
 
 if __name__ == '__main__':
