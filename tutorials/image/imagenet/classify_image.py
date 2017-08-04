@@ -257,7 +257,7 @@ def download(url):
 
 
 def region_image(image, node_lookup):
-    # 不能用webp需要转换
+    # 不能用webp需要转换 只适用于aliyun，其他的请自己修改  或者用本地图片
     if image.startswith("http"):
         if image.find('jiemosrc') > 0 and image.endswith("webp"):
 
@@ -283,7 +283,7 @@ def region_image(image, node_lookup):
 def main(_):
     maybe_download_and_extract()
     node_lookup = init_image_classify_names()
-    region_image('http://x.webp', node_lookup)
+    region_image('/Users/haizhu/Downloads/tensorflow/images/temp_image.jpg', node_lookup)
 
 
 if __name__ == '__main__':
