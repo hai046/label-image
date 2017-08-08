@@ -119,7 +119,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--image',
         type=str,
-        default='/Users/haizhu/Desktop/jiemo/-YutXj_wyvsD8s41TXBPxw.jpg',
+        default='/Users/haizhu/Desktop/jiemo/WInClCD3IroD8s41TXBPxw.jpg',
         help='Absolute path to image file.')
     parser.add_argument(
         '--graph',
