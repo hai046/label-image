@@ -14,3 +14,8 @@ http://www.cnblogs.com/neopenx/p/4480701.html
 ### 后续
 
 https://github.com/tensorflow/tensorflow/blob/r1.2/tensorflow/examples/label_image/README.md 比本项目实现识别率更高
+
+
+### 更新2017年08月08日11:50
+
+image_retraining 目录下可以自己训练模型  自己识别  66666
