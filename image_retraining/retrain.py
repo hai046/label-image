@@ -153,6 +153,9 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
         dir_name = os.path.basename(sub_dir)
         if dir_name == image_dir:
             continue
+        if dir_name.startswith("."):
+            tf.logging.info("hide dir skip '" + dir_name + "'")
+            continue
         tf.logging.info("Looking for images in '" + dir_name + "'")
         for extension in extensions:
             file_glob = os.path.join(image_dir, dir_name, '*.' + extension)
@@ -167,7 +170,8 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
             tf.logging.warning(
                 'WARNING: Folder {} has more than {} images. Some images will '
                 'never be selected.'.format(dir_name, MAX_NUM_IMAGES_PER_CLASS))
-        label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
+        # label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
+        label_name=dir_name.lower()
         training_images = []
         testing_images = []
         validation_images = []
