@@ -1151,13 +1151,13 @@ if __name__ == '__main__':
     parser.add_argument(
         '--output_graph',
         type=str,
-        default='/tmp/output_graph.pb',
+        default='data/output_graph.pb',
         help='Where to save the trained graph.'
     )
     parser.add_argument(
         '--intermediate_output_graphs_dir',
         type=str,
-        default='/tmp/intermediate_graph/',
+        default='data/intermediate_graph/',
         help='Where to save the intermediate graphs.'
     )
     parser.add_argument(
@@ -1172,7 +1172,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--output_labels',
         type=str,
-        default='/tmp/output_labels.txt',
+        default='data/output_labels.txt',
         help='Where to save the trained graph\'s labels.'
     )
     parser.add_argument(

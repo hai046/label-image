@@ -123,13 +123,13 @@ if __name__ == '__main__':
         help='Absolute path to image file.')
     parser.add_argument(
         '--graph',
-        default='/tmp/output_graph.pb',
+        default='data/output_graph.pb',
         type=str,
         help='Absolute path to graph file (.pb)')
     parser.add_argument(
         '--labels',
         type=str,
-        default='/tmp/output_labels.txt',
+        default='data/output_labels.txt',
         help='Absolute path to labels file (.txt)')
     parser.add_argument(
         '--output_layer',
