@@ -71,7 +71,7 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
-    file_name = "data/grace_hopper.jpg"
+    # file_name = "data/grace_hopper.jpg"
 
     # https://storage.googleapis.com/download.tensorflow.org/models/inception_v3_2016_08_28_frozen.pb.tar.gz
     model_file = \
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--image", help="image to be processed",
-                        default='data/cropped_panda.jpg')
+                        default='/Users/haizhu/Downloads/tensorflow/images/temp_image.png')
     parser.add_argument("--graph", help="graph/model to be executed")
     parser.add_argument("--labels", help="name of file containing labels")
     parser.add_argument("--input_height", type=int, help="input height")
