@@ -83,17 +83,10 @@ def run_graph(image_data, labels, input_layer_name, output_layer_name,
         # Sort to show labels in order of confidence
         top_k = predictions.argsort()[-num_top_predictions:][::-1]
 
-        hanzi = {'shuaige': '帅哥',
-                 'chounan': '丑男',
-                 'meinv': '美女',
-                 'chounv': '丑女',
-                 'xinggan': '性感美女',
-                 'dachangtui': '长腿美女'
-                 }
         for node_id in top_k:
             human_string = labels[node_id]
             score = predictions[node_id]
-            print('%s (score = %.5f)' % (hanzi[human_string], score))
+            print('%s[%.5f]' % (name_mapping[human_string], score), end='<br>')
             result[human_string] = score
 
         return result
@@ -111,6 +104,15 @@ def download_image(url):
                        url, out_file)).read())
     return out_file
     pass
+
+
+name_mapping = {'shuaige': '帅哥',
+                'chounan': '丑男',
+                'meinv': '美女',
+                'chounv': '丑女',
+                'xinggan': '性感美女',
+                'dachangtui': '长腿美女'
+                }
 
 
 def main(argv):
@@ -151,17 +153,18 @@ def main(argv):
     chounv_score = result.get('chounv', 0)
     xinggan_score = result.get('xinggan', 0)
 
+    print("============分析结果=============")
     if shuaige_score + chounan_score > meinv_score + chounv_score and xinggan_score < (
             shuaige_score if shuaige_score > chounan_score else chounan_score):
         print("%s男生 颜值=%.2f" % (('应该是' if shuaige_score > 0.3  else '可能是'),
                                 100 * shuaige_score / (shuaige_score + chounan_score)))
 
     else:
-        extra = ('应该是' if meinv_score > 0.3  else '可能是')
+        extra = ('应该是' if meinv_score or xinggan_score > 0.3  else '可能是')
 
         if xinggan_score > 0.1:
             extra += '性感'
-        print("%s女生 \t颜值=%.2f" % (extra, 100 * meinv_score / (meinv_score + chounv_score)))
+        print("%s女生  \t颜值=%.2f" % (extra, 100 * meinv_score / (meinv_score + chounv_score)))
 
 
 if __name__ == '__main__':
@@ -170,7 +173,7 @@ if __name__ == '__main__':
         '--image',
         type=str,
         # default='/Users/haizhu/Desktop/jiemo/baco.jpg',
-        default='http://p.jiemosrc.com/VKllnBWr1ysD8s41TXBPxw.webp?x-oss-process=image/resize,m_fill,h_320,w_320/quality,q_90/format,webp',
+        default='http://pic2016.ytqmx.com:82/2016/0516/19/1.jpg!960.jpg',
         help='Absolute path to image file.')
     parser.add_argument(
         '--graph',

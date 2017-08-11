@@ -15,6 +15,33 @@ http://www.cnblogs.com/neopenx/p/4480701.html
 
 https://github.com/tensorflow/tensorflow/blob/r1.2/tensorflow/examples/label_image/README.md 比本项目实现识别率更高
 
+### 更新2017年08月11日10:11
+例子 `image_retraining`
+
+目前添加了五个分类
+```
+chounan
+meinv
+shuaige
+xinggan
+chounv
+dachangtui
+
+```
+
+
+一共收集到6类 图片用百度上搜索
+
+感觉可以用来评估 某一个人的颜值
+
+效果
+
+|图片|结果|
+|-|-|
+|![](http://dynamic-image.yesky.com/740x-/uploadImages/2015/183/03/1VWS4F8TN76I.jpg)|长腿美女[0.62927],性感美女[0.34004],帅哥[0.01739],美女[0.01269],丑男[0.00036]|
+|![](http://img.tupianzj.com/uploads/allimg/151228/9-15122R02H0.jpg)| 性感美女[0.96357],长腿美女[0.03571],美女[0.00063],帅哥[0.00007],丑男[0.00001]|
+|![](https://b-ssl.duitang.com/uploads/item/201403/29/20140329133232_EsQtf.thumb.700_0.jpeg)| 性感美女[0.96357],长腿美女[0.03571],美女[0.00063],帅哥[0.00007],丑男[0.00001]|
+
 
 ### 更新2017年08月08日11:50
 
