@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--image", help="image to be processed",
-                        default='/Users/haizhu/Downloads/tensorflow/images/temp_image.png')
+                        default='/Users/haizhu/Desktop/1.png')
     parser.add_argument("--graph", help="graph/model to be executed")
     parser.add_argument("--labels", help="name of file containing labels")
     parser.add_argument("--input_height", type=int, help="input height")
